@@ -1,0 +1,18 @@
+{% extends "catalog/base_generic.html" %}
+
+{% block content %}
+<h1>Главная страница библиотеки</h1>
+
+<p>Добро пожаловать в нашу библиотеку!</p>
+
+<h2>Статистика библиотеки</h2>
+
+<p>В нашей библиотеке сейчас:</p>
+
+<ul>
+    <li><strong>Книг:</strong> {{ num_books }}</li>
+    <li><strong>Экземпляров книг:</strong> {{ num_instances }}</li>
+    <li><strong>Доступно экземпляров:</strong> {{ num_instances_available }}</li>
+    <li><strong>Авторов:</strong> {{ num_authors }}</li>
+</ul>
+{% endblock %}
