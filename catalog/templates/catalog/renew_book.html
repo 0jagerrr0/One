@@ -1,0 +1,14 @@
+{% extends "catalog/base_generic.html" %}
+{% block content %}
+<h1>Продление срока возврата книги</h1>
+
+<p><strong>Книга:</strong> {{ book_instance.book.title }}</p>
+<p><strong>Экземпляр:</strong> {{ book_instance.id }}</p>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit">Продлить срок возврата</button>
+</form>
+{% endblock %}

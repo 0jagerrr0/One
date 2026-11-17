@@ -18,4 +18,7 @@
     {% endfor %}
 </p>
 
+{% if perms.catalog.can_mark_returned %}
+    <p>У вас есть разрешение отмечать книги как возвращённые.</p>
+{% endif %}
 {% endblock %}
