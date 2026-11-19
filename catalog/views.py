@@ -1,4 +1,3 @@
-
 from django.views import generic
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
