@@ -1,12 +1,14 @@
+
 from django.views import generic
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import permission_required
+from django.contrib.auth import login
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
 from .models import Book, Author, BookInstance, Genre
-from .forms import RenewBookForm
+from .forms import RenewBookForm, RegisterForm
 
 
 def index(request):
@@ -83,6 +85,7 @@ def renew_book_librarian(request, pk):
 
     return render(request, 'catalog/renew_book.html', context)
 
+
 class LoanedBooksAllListView(LoginRequiredMixin, generic.ListView):
     model = BookInstance
     template_name = 'catalog/all_borrowed.html'
@@ -90,3 +93,18 @@ class LoanedBooksAllListView(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         return BookInstance.objects.filter(status__exact='o').order_by('due_back')
+
+
+def register(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return HttpResponseRedirect(reverse('index'))
+
+    else:
+        form = RegisterForm()
+
+    return render(request, 'registration/registration.html', {'form': form})

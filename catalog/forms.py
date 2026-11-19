@@ -2,6 +2,8 @@ import datetime
 from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import get_user_model
 
 class RenewBookForm(forms.Form):
     renewal_date = forms.DateField(
@@ -18,3 +20,8 @@ class RenewBookForm(forms.Form):
             raise ValidationError(_('Нельзя продлить книгу более чем на четыре недели.'))
 
         return data
+
+class RegisterForm(UserCreationForm):
+    class Meta:
+        model = get_user_model()
+        fields = ('username',)
